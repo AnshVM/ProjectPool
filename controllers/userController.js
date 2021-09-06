@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const { response } = require('express');
+
 dotenv.config();
 
 exports.signup = (req, res) => {
@@ -61,7 +61,7 @@ exports.getUserById = async (req,res) => {
     const {id} = req.params.id;
     const user = await User.findById(id);
     if(!user) return res.status(404).json("No user found");
-    return res.status(200).json(JSON.stringify(user))
+    return res.status(200).json(user)
 }
 
 exports.getCurentUser = async(req,res) => {
@@ -70,6 +70,6 @@ exports.getCurentUser = async(req,res) => {
         if(err) return res.status(401).json(err);
         const {id} = decoded;
         const user = await User.findById(id);
-        return res.status(200).json(JSON.stringify(user));
+        return res.status(200).json(user);
     })
 }
