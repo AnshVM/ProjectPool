@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 const { response } = require('express');
 dotenv.config();
 
-exports.signup = (req, res, next) => {
-    console.log("recieved signup request")
+exports.signup = (req, res) => {
     const { username, email, password } = req.body;
+
     bcrypt.hash(password, 10, (err, hash) => {
         err && console.log(err);
         const newUser = {
@@ -28,7 +28,7 @@ exports.signup = (req, res, next) => {
 
 }
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) return res.status(404).json("User not found")
@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
         if (!result) return res.status(400).json("Incorrect password");
 
         const payload = {
-            userId: user._id,
+            id: user._id,
             email: user.email,
             username: user.username
         }
@@ -48,5 +48,28 @@ exports.login = async (req, res, next) => {
         const accessToken = jwt.sign(payload, process.env.SECRET_KEY);
         res.cookie('accessToken','Bearer '+accessToken, {httpOnly: true })
         res.status(200).json({ accessToken });
+    })
+}
+
+exports.logout = (req,res) => {
+    console.log('Recieved logout request')
+    res.clearCookie('accessToken');
+    res.status(200).json("Logout successful")
+}
+
+exports.getUserById = async (req,res) => {
+    const {id} = req.params.id;
+    const user = await User.findById(id);
+    if(!user) return res.status(404).json("No user found");
+    return res.status(200).json(JSON.stringify(user))
+}
+
+exports.getCurentUser = async(req,res) => {
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    jwt.verify(accessToken, process.env.SECRET_KEY,(err,decoded)=>{
+        if(err) return res.status(401).json(err);
+        const {id} = decoded;
+        const user = await User.findById(id);
+        return res.status(200).json(JSON.stringify(user));
     })
 }

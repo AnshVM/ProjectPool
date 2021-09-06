@@ -2,6 +2,12 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded());
+
 dotenv.config();
 
 const port = process.env.PORT || 3000;
