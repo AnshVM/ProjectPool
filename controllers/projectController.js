@@ -36,7 +36,7 @@ exports.getProjectById = async(req,res)=>{
 
 exports.starProject = async(req,res) => {
     //increment stars of project
-    const {projectId} = req.params;
+    const projectId = req.params.id;
     const project = await Project.findById(projectId);
     project.stars++;
     await project.save();
