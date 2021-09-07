@@ -3,10 +3,11 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const routes = require('./routes/index');
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use('/api',routes);
 
 dotenv.config();
 
