@@ -2,6 +2,8 @@ import React from 'react';
 import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import Topbar from './components/topbar'
+import Project from './components/Project'
 
 import {
   BrowserRouter as Router,
@@ -10,24 +12,43 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  const description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+
   return (
-    <Router>
-      <Switch>
+    <div>
+      <Router>
+        <Topbar />
 
-        <Route path="/login"> 
-          <Login/>
-        </Route>
+        <Switch>
 
-        <Route path="/signup"> 
-          <Signup/>
-        </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
 
-        <Route path="/">
-          <Home/>
-        </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
 
-      </Switch>
-    </Router>
+          <Route path="/project/:id">
+            <Project
+              name="QuickPoll"
+              owner="Ansh Malik"
+              description={description}
+              repo="https://github.com/quickpoll"
+              link="https://quickpoll-herokuapp.com"
+              stars={23}
+            />
+          </Route>
+
+          <Route path="/">
+            <Home />
+          </Route>
+
+        </Switch>
+      </Router>
+    </div>
+
   );
 }
 
