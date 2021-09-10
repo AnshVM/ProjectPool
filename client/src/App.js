@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Topbar from './components/topbar'
 import Project from './components/Project'
 import NewProject from './components/NewProject'
+import Profile from './components/Profile';
 
 import {
   BrowserRouter as Router,
@@ -44,6 +45,10 @@ function App() {
 
           <Route path="/new">
             <NewProject/>
+          </Route>
+
+          <Route path="/profile/:id">
+            <Profile/>
           </Route>
 
           <Route path="/">

@@ -1,10 +1,7 @@
 import React from 'react'
-import StarBorderOutlined from '@material-ui/icons/StarBorderOutlined'
 import { Tag } from '@chakra-ui/tag'
 import {Link} from '@chakra-ui/react'
 import {useState} from 'react'
-import StarIcon from '@material-ui/icons/Star'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
 
 export default function Project({ name, owner, description, repo, link, stars }) {
