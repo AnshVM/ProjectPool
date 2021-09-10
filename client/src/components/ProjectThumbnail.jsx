@@ -5,7 +5,7 @@ import './projectThumbnail.css'
 
 export default function projectThumbnail({ name, description, owner }) {
     return (
-        <div className="flex flex-col shadow-lg my-8 bg-white p-6 gap-y-4">
+        <div className="flex flex-col shadow-lg my-8 p-6 gap-y-4 bg-white">
             <div className="flex flex-row justify-between items-baseline">
                 <div className="flex flex-row gap-x-3 items-center justify-start">
                     <Text color="blue" className="font-bold text-xl ">{name}</Text>
