@@ -6,7 +6,7 @@ const User = require('../models/User');
 dotenv.config();
 
 exports.addProject = async(req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     let owner;
     jwt.verify(accessToken,process.env.SECRET_KEY,(err,decoded)=>{
         owner = decoded.id;
@@ -45,7 +45,7 @@ exports.starProject = async(req,res) => {
     await project.save();
     console.log(project)
     //add ptoject id to starred projects
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     jwt.verify(accessToken,process.env.SECRET_KEY,async (err,decoded)=>{
         const userId = decoded.id;
         console.log(userId)
@@ -65,7 +65,7 @@ exports.unstarProject = async(req,res) => {
     project.stars--;
     await project.save();
     //add ptoject id to starred projects
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     jwt.verify(accessToken,process.env.SECRET_KEY,async (err,decoded)=>{
         const userId = decoded.id;
         const user = await User.findById(userId);
@@ -76,7 +76,7 @@ exports.unstarProject = async(req,res) => {
 }
 
 exports.getSelfProjects = async(req,res)=>{
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     jwt.verify(accessToken,process.env.SECRET_KEY,async (err,decoded)=>{
         const {id} = decoded;
         const user = await User.findById(id);
@@ -91,7 +91,7 @@ exports.getSelfProjects = async(req,res)=>{
 }
 
 exports.getStarredProjects = async(req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split : "";
     jwt.verify(accessToken,process.env.SECRET_KEY,async(err,decoded)=>{
         const {id} = decoded;
         const user = await User.findById(id);

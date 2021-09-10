@@ -7,7 +7,7 @@ dotenv.config();
 
 exports.signup = (req, res) => {
     const { username, email, password } = req.body;
-
+    console.log("signup")
     bcrypt.hash(password, 10, (err, hash) => {
         err && console.log(err);
         const newUser = {
@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
         }
 
         const accessToken = jwt.sign(payload, process.env.SECRET_KEY);
-        res.cookie('accessToken','Bearer '+accessToken, {httpOnly: true })
+        res.cookie('accessToken',accessToken, {httpOnly: true })
         res.status(200).json({ accessToken });
     })
 }
@@ -66,7 +66,7 @@ exports.getUserById = async (req,res) => {
 }
 
 exports.getCurentUser = async(req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     jwt.verify(accessToken, process.env.SECRET_KEY,async (err,decoded)=>{
         if(err) return res.status(401).json(err);
         const {id} = decoded;
