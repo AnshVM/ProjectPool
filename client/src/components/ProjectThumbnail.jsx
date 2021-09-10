@@ -1,7 +1,5 @@
 import React from 'react'
 import { Text } from '@chakra-ui/layout'
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
-import './projectThumbnail.css'
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
 import {useState} from 'react';
 
