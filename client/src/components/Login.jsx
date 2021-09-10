@@ -9,9 +9,13 @@ import {
 import {useState} from 'react';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import {login} from '../loginSlice'
+import jwt_decode from 'jwt-decode'
 
 export default function Login() {
 
+    const dispatch = useDispatch()
     const history = useHistory();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
@@ -29,8 +33,13 @@ export default function Login() {
     const handleLogin = () => {
         axios.post('/api/user/login',{email,password})
         .then((res)=>{
-            if(res.status===200)
+            if(res.status===200){
+                console.log(res)
+                const user = jwt_decode(res.data.accessToken);
+                console.log(user)
                 history.push('/')
+                dispatch(login({ isLoggedIn: true,user}))
+            }
         })
         .catch((err)=>{console.log(err)})
     }
