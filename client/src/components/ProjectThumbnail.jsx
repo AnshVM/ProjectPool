@@ -1,30 +1,22 @@
 import React from 'react'
 import { Text } from '@chakra-ui/layout'
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
-import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
-export default function ProjectThumbnail({ name, description, owner }) {
-
-    const [starColor,setStarColor] = useState("grey")
-
-    const handleStarClick = () => {
-            if(starColor==="grey") setStarColor("blue")
-            else setStarColor("grey")
-    }
-
+export default function ProjectThumbnail({project}) {
     return (
-        <div className="flex flex-col shadow-lg my-4 p-6 gap-y-4 bg-white">
+        <Link to={`project/${project._id}`}><div className="flex flex-col shadow-lg my-4 p-6 gap-y-4 bg-white">
             <div className="flex flex-row justify-between items-baseline">
                 <div className="flex flex-row gap-x-3 items-center justify-start">
-                    <Text color="blue" className="font-bold text-xl ">{name}</Text>
-                    <p className="text-sm text-gray-600 font-semibold">by {owner}</p>
+                    <Text color="blue" className="font-bold text-xl ">{project.name}</Text>
+                    <p className="text-sm text-gray-600 font-semibold">by {project.ownerName}</p>
                 </div>
                 <div className="flex flex-row gap-x-2 align-middle items-center">
-                    <button onClick={handleStarClick}><StarTwoToneIcon style={{ color: starColor }} /></button>
-                    <p>23</p>
+                    <StarTwoToneIcon style={{ color: "blue" }} />
+                    <p>{project.stars}</p>
                 </div>
             </div>
-            <p >{description}</p>
-        </div>
+            <p >{project.description.slice(0,475)}...</p>
+        </div></Link>
     )
 }

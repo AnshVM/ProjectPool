@@ -10,11 +10,13 @@ exports.addProject = async(req,res) => {
     let owner;
     jwt.verify(accessToken,process.env.SECRET_KEY,(err,decoded)=>{
         owner = decoded.id;
+        ownerName = decoded.username
     })
     const {name,description,repo,link} = req.body
     const newProject = {
         name,
         owner,
+        ownerName,
         description,
         repo,
         link,
@@ -91,7 +93,8 @@ exports.getSelfProjects = async(req,res)=>{
 }
 
 exports.getStarredProjects = async(req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split : "";
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
+    console.log(accessToken)
     jwt.verify(accessToken,process.env.SECRET_KEY,async(err,decoded)=>{
         const {id} = decoded;
         const user = await User.findById(id);

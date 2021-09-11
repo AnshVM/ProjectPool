@@ -4,6 +4,7 @@ const validator = require('validator');
 const projectSchema = new mongoose.Schema({
     name:String,
     owner:String,
+    ownerName:String,
     description:String,
     repo:String,
     link:"",
