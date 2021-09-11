@@ -8,10 +8,11 @@ import {Link,useHistory} from 'react-router-dom'
 export default function Profile() {
     const description="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "
     const user = useSelector((state)=>state.loginState.user)
-    const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
     const history = useHistory();
-    if(!isLoggedIn)
+    const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
+    if(isLoggedIn===false){
         history.push('/login')
+    }
 
     return (
         <div className="flex flex-col px-5 lg:px-56 md:px-32 sm:px-5 bg-graybg h-full min-h-screen py-9 gap-y-6">

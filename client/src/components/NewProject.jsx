@@ -13,7 +13,9 @@ export default function NewProject() {
 
     const history = useHistory();
     const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
-    console.log(isLoggedIn)
+    if(isLoggedIn===false){
+        history.push('/login')
+    }
 
     return (
         <div className="bg-graybg h-full flex flex-col px-5 lg:px-56 md:px-32 sm:px-5 pt-6 pb-20 mb-0 gap-y-4">

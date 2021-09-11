@@ -30,7 +30,9 @@ function App() {
       const user = {_id,username,email};
       dispatch(login({isLoggedIn:true,user}))
     })
-    .catch((err)=>console.log(err))
+    .catch((err)=>{
+      dispatch(login({isLoggedIn:false,user:{}}))
+    })
   },[])
 
 
