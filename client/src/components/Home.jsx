@@ -12,7 +12,7 @@ export default function Home() {
     useEffect(()=>{
         axios.get('/api/project/all')
         .then((res)=>{
-            res.data.sort((a,b)=>a-b)
+            res.data.sort((a,b)=>a.stars-b.stars)
             res.data.reverse()
             setPopular(res.data)
         })
