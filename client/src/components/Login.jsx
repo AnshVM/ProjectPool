@@ -19,6 +19,7 @@ export default function Login() {
     const history = useHistory();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
+    const [err,setErr] = useState();
 
     const emailChange = (e) => {
         e.preventDefault();
@@ -41,7 +42,11 @@ export default function Login() {
                 dispatch(login({ isLoggedIn: true,user}))
             }
         })
-        .catch((err)=>{console.log(err)})
+        .catch((err)=>{
+            if(err.toJSON().message==="Request failed with status code 404"){
+                setErr("Wrong email id or password")
+            }
+        })
     }
 
     return (
@@ -57,6 +62,7 @@ export default function Login() {
                     <FormLabel><Text className="text-gray-500 font-semibold">Password</Text></FormLabel>
                     <div className="bg-white"><Input onChange={passwordChange} value={password} className="bg-white" type="password" /></div>
                 </FormControl>
+                <p className="text-red-500 font-semibold mx-auto">{err}</p>
                 <Button onClick={handleLogin} height="60px" className="mt-5" colorScheme="blue"><p className="text-xl">Login</p></Button>
                 
             </div>
