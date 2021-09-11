@@ -3,18 +3,26 @@ import { Button, Text } from "@chakra-ui/react"
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
+import axios from 'axios'
 
 function Right() {
     const isLoggedIn = useSelector((state) => state.loginState.isLoggedIn);
     const user = useSelector((state) => state.loginState.user);
+
+    const handleLogout = () => {
+        axios.get('/api/user/logout')
+        .then((res)=>console.log(res))
+        .catch((err)=>console.log(err))
+    }
+
     if (isLoggedIn) {
         return (
             <div className="flex flex-row items-center">
+                <Button onClick={handleLogout} className="mr-3" colorScheme="teal" variant="ghost">Logout</Button>
                 <Link to={"/profile/"+user.id}>
                     <AccountCircleIcon />
                 </Link>
-                <p className="text-black font-semibold">{user.username}</p>
+                <Text color="teal"><p className="font-semibold">{user.username}</p></Text>
             </div>
         )
     }
