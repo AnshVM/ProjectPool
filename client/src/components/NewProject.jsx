@@ -8,13 +8,28 @@ import {
 } from "@chakra-ui/react"
 import {useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import {useState} from 'react'
+import axios from 'axios'
 
 export default function NewProject() {
 
+    const [formState,setFormState] = useState({name:"",description:"",repo:"",link:""})
     const history = useHistory();
     const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
     if(isLoggedIn===false){
         history.push('/login')
+    }
+
+    const handleChange = (e) => {
+        setFormState({...formState,[e.target.name]:e.target.value})
+    }
+
+    const handleCreate = () => {
+        axios.post('/api/project/',formState)
+        .then((res)=>{
+            console.log(res)
+            history.goBack();
+        })
     }
 
     return (
@@ -23,24 +38,27 @@ export default function NewProject() {
             <p className="text-gray-500 font-semibold">Fill the form below to create a new project.</p>
             <FormControl id="project-name" isRequired>
                 <FormLabel>Project Name</FormLabel>
-                <div className="bg-white"><Input placeholder="Project name" /></div>
+                <div className="bg-white"><Input value={formState.name} onChange={handleChange} placeholder="Project name" name="name"/></div>
             </FormControl>
             <FormControl id="description" isRequired>
                 <FormLabel>Description</FormLabel>
                 <div className="bg-white"><Textarea
                     placeholder="Enter the project description"
                     rows="8"
+                    name="description"
+                    value={formState.description} 
+                    onChange={handleChange} 
                 /></div>
             </FormControl>
             <FormControl>
                 <FormLabel>Github repository link</FormLabel>
-                <div className="bg-white"><Input placeholder="Optional"/></div>
+                <div className="bg-white"><Input value={formState.repo} onChange={handleChange}  placeholder="Optional" name="repo"/></div>
             </FormControl>
             <FormControl>
                 <FormLabel>Project Link/Demo</FormLabel>
-                <div className="bg-white"><Input placeholder="Optional"/></div>
+                <div className="bg-white"><Input value={formState.link} onChange={handleChange}  placeholder="Optional" name="link" /></div>
             </FormControl>
-            <Button height="50px" colorScheme="blue"><p className="text-xl">Create Project</p></Button>
+            <Button onClick={handleCreate} height="50px" colorScheme="blue"><p className="text-xl">Create Project</p></Button>
         </div>
     )
 }
