@@ -14,7 +14,7 @@ export default function Project({ name, owner, description, repo, link, stars })
     }
 
     return (
-        <div className="flex flex-col gap-y-6 pt-20 px-56 bg-graybg h-screen">
+        <div className="flex flex-col gap-y-6 pt-20 px-5 lg:px-56 md:px-32 sm:px-5 bg-graybg h-screen">
             <div className="flex flex-row gap-x-2 justify-between">
                 <div className="flex flex-row gap-x-2 items-baseline">
                     <h1 className="font-bold text-2xl">{name}</h1>

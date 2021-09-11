@@ -6,10 +6,17 @@ import {
     Textarea,
     Button
 } from "@chakra-ui/react"
+import {useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 export default function NewProject() {
+
+    const history = useHistory();
+    const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
+    console.log(isLoggedIn)
+
     return (
-        <div className="bg-graybg h-full flex flex-col px-56 pt-6 pb-20 mb-0 gap-y-4">
+        <div className="bg-graybg h-full flex flex-col px-5 lg:px-56 md:px-32 sm:px-5 pt-6 pb-20 mb-0 gap-y-4">
             <h1 className="text-black text-2xl font-bold">Create new project</h1>
             <p className="text-gray-500 font-semibold">Fill the form below to create a new project.</p>
             <FormControl id="project-name" isRequired>

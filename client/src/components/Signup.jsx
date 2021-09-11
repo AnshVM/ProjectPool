@@ -47,7 +47,7 @@ export default function Signup() {
 
     return (
         <div className="bg-graybg">
-            <div back className="login flex flex-col gap-y-3 m-auto  w-1/3 h-screen p-5">
+            <div back className="signup flex flex-col gap-y-3 m-auto sm:w-2/3 md:w-2/3 lg:w-1/3 h-screen p-5">
                 <Text className="font-bold text-4xl text-black mt-20">Sign up</Text>
                 <Text className="text-gray-400 font-semibold">Complete the below form to signup for ProjectPool</Text>
                 <FormControl id="username">

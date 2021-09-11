@@ -74,3 +74,17 @@ exports.getCurentUser = async(req,res) => {
         return res.status(200).json(user);
     })
 }
+
+exports.verifyToken = (req,res) => {
+
+    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    jwt.verify(accessToken,process.env.SECRET_KEY,(err,decoded)=>{
+        if(err) return res.status(401).json(err)
+        const user = {
+            email:decoded.email,
+            id:decoded.userId,
+            username:decoded.username
+        }
+        res.status(200).json({user});
+    })
+}
