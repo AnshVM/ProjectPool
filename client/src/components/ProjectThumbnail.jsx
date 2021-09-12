@@ -11,10 +11,6 @@ export default function ProjectThumbnail({project}) {
                     <Text color="blue" className="font-bold text-xl ">{project.name}</Text>
                     <p className="text-sm text-gray-600 font-semibold">by {project.ownerName}</p>
                 </div>
-                <div className="flex flex-row gap-x-2 align-middle items-center">
-                    <StarTwoToneIcon style={{ color: "blue" }} />
-                    <p>{project.stars}</p>
-                </div>
             </div>
             <p >{project.description && project.description.slice(0,475)}...</p>
         </div></Link>
