@@ -27,7 +27,7 @@ function Right() {
         return (
             <div className="flex flex-row items-center">
                 <Button onClick={handleLogout} className="mr-3" colorScheme="teal" variant="ghost">Logout</Button>
-                <Link to={"/profile/"+user.id}>
+                <Link to={"/profile/"+user._id}>
                     <AccountCircleIcon />
                 </Link>
                 <Text color="teal"><p className="font-semibold">{user.username}</p></Text>
