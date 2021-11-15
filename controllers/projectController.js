@@ -5,6 +5,19 @@ const User = require('../models/User');
 
 dotenv.config();
 
+
+// name:String,
+// owner:String,
+// ownerName:String,
+// description:String,
+// repo:String,
+// link:String,
+// stars:Number,
+// level:String,
+// type:String,
+// frontend:[String],
+// backend:[String]
+
 exports.addProject = async(req,res) => {
     const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
     let owner;
@@ -20,7 +33,11 @@ exports.addProject = async(req,res) => {
         description,
         repo,
         link,
-        stars:0
+        stars:0,
+        level:"",
+        type:"",
+        frontend:[],
+        backend:[]
     }
     Project.create(newProject,async (err,project)=>{
         if(err) return res.json(err);

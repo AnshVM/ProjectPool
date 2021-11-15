@@ -7,8 +7,12 @@ const projectSchema = new mongoose.Schema({
     ownerName:String,
     description:String,
     repo:String,
-    link:"",
-    stars:""
+    link:String,
+    stars:Number,
+    level:String,
+    type:String,
+    frontend:[String],
+    backend:[String]
 })
 
 const Project = new mongoose.model('Project',projectSchema);

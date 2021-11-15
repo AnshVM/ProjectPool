@@ -20,8 +20,7 @@ exports.signup = (req, res) => {
         User.create(newUser, (err, user) => {
             if (err) return console.log(err)
             else {
-                res.status(201).json("User created!!!")
-                console.log("New user created")
+                res.status(201).json(user._id)
             }
         })
     })
