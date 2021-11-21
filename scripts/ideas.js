@@ -45,4 +45,4 @@ for(let i=0;i<string.length-1;i++){
 
 
 console.log(projects);
-export default projects;
+module.exports = projects

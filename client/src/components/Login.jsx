@@ -39,7 +39,7 @@ export default function Login() {
                 const user = jwt_decode(res.data.accessToken);
                 console.log(user)
                 history.push('/')
-                dispatch(login({ isLoggedIn: true,user}))
+                dispatch(login({ isLoggedIn: true,user,accessToken:res.data.accessToken}))
             }
         })
         .catch((err)=>{

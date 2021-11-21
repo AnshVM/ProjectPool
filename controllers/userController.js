@@ -58,24 +58,17 @@ exports.logout = (req,res) => {
 
 exports.getUserById = async (req,res) => {
     const {id} = req.params;
-    console.log(id);
     const user = await User.findById(id);
     if(!user) return res.status(404).json("No user found");
     return res.status(200).json(user)
 }
 
 exports.getCurentUser = async(req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken : "";
-    jwt.verify(accessToken, process.env.SECRET_KEY,async (err,decoded)=>{
-        if(err) return res.status(401).json(err);
-        const {id} = decoded;
-        const user = await User.findById(id);
-        return res.status(200).json(user);
-    })
+    const user = await User.findById(req.id);
+    return res.status(200).json(user)
 }
 
 exports.verifyToken = (req,res) => {
-
     const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
     jwt.verify(accessToken,process.env.SECRET_KEY,(err,decoded)=>{
         if(err) return res.status(401).json(err)

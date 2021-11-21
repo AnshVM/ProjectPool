@@ -12,7 +12,7 @@ export default function Profile() {
     const description="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "
     const user = useSelector((state)=>state.loginState.user)
     const history = useHistory();
-    const isLoggedIn = useSelector((state)=>state.loginState.isLoggedIn);
+    const {isLoggedIn,accessToken} = useSelector((state)=>state.loginState);
     const [yourProjects,setYourProjects] = useState([{}]);
     const [starredProjects,setStarredProjects] = useState([{}])
 
@@ -21,11 +21,11 @@ export default function Profile() {
     }
 
     useEffect(()=>{
-        axios.get('/api/project/self')
+        axios.get('/api/project/self',{headers:{authorization:"Bearer "+accessToken}})
         .then(res=>{console.log(res.data);setYourProjects(res.data)})
         .catch(err=>{console.error(err)})
 
-        axios.get('/api/project/starred')
+        axios.get('/api/project/starred',{headers:{authorization:"Bearer "+accessToken}})
         .then(res=>{setStarredProjects(res.data)})
         .catch(err=>console.error(err))
     },[])
@@ -44,8 +44,7 @@ export default function Profile() {
             <div className="flex flex-col gap-y-3">
                 <h3 className="font-bold text-black text-xl">Your projects</h3>
                 <Link to="/new"><Button variant="outline" size="md" width="150px" colorScheme="teal">New project</Button></Link>
-                {/* <ProjectThumbnail name="QuickPoll" description={description} owner="Ansh Malik"/> */}
-                {yourProjects.map((project)=><ProjectThumbnail key={project._id} project={project} />)}
+                {yourProjects.map((project)=><ProjectThumbnail  key={project._id} project={project} />)}
             </div>
             <div className="flex flex-col">
                 <h3 className="font-bold text-black text-xl">Starred projects</h3>

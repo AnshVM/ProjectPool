@@ -9,6 +9,6 @@ Router.get('/all',projectController.getAllProjects);
 Router.put('/star/:id',auth,projectController.starProject);
 Router.put('/unstar/:id',auth,projectController.unstarProject);
 Router.get('/:id',auth,projectController.getProjectById);
-
+Router.delete('/:id',auth,projectController.deleteProject)
 
 module.exports = Router;
