@@ -63,15 +63,16 @@ export default function Project() {
         })
         .catch((err)=>console.log(err))
 
-        axios.get('/api/project/starred')
+        axios.get('/api/project/starred',{headers:{authorization:"Bearer "+accessToken}})
         .then((res)=>{
             const starredProjects = res.data;
             setStarred(false);
             starredProjects.forEach((project)=>{
+                if(!project) return
                 if(project._id===id) {setStarred(true)}
             })
         })
-    },[])
+    },[accessToken])
 
     useEffect(()=>{
         if(isLoggedIn===false){

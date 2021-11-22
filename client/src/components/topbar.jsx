@@ -12,22 +12,20 @@ function Right() {
     const user = useSelector((state) => state.loginState.user);
     const dispatch = useDispatch();
     const history = useHistory();
-
-    console.log(user)
+    const accessToken = useSelector((state)=>state.loginState.accessToken)
 
     const handleLogout = () => {
-        axios.get('/api/user/logout')
-        .then((res)=>console.log(res))
+        axios.get('/api/user/logout',{headers:{authorization:"Bearer "+accessToken}})
+        .then((res)=>{console.log(res);history.push('/login')})
         .catch((err)=>console.log(err))
         dispatch(login({isLoggedIn:false,user:{}}))
-        history.push('/')
     }
 
     if (isLoggedIn) {
         return (
             <div className="flex flex-row items-center">
                 <Button onClick={handleLogout} className="mr-3" colorScheme="teal" variant="ghost">Logout</Button>
-                <Link to={"/profile/"+user._id}>
+                <Link to={"/profile/"+user.id}>
                     <AccountCircleIcon />
                 </Link>
                 <Text color="teal"><p className="font-semibold">{user.username}</p></Text>

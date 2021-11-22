@@ -5,6 +5,7 @@ const auth = require('../lib/auth');
 Router.post('/signup',userController.signup);
 Router.post('/login',userController.login);
 Router.get('/logout',auth,userController.logout);
+Router.get('/verifyToken',userController.verifyToken)
 Router.get('/:id',auth,userController.getUserById);
 Router.get('/',auth,userController.getCurentUser);
 

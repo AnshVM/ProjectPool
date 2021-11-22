@@ -27,12 +27,12 @@ for(let i=0;i<string.length-1;i++){
 
   else if(string[i].startsWith("Front-End")){
     if(string[i].substring(11)==='N/A') projects[projectno].frontend=null;
-    else projects[projectno].frontend=string[i].substring(11).split(', ');
+    else projects[projectno].frontend=string[i].substring(11).split(', ').toString();
   }
 
   else if(string[i].startsWith("Back-End")){
     if(string[i].substring(10)==='N/A') projects[projectno].backend=null;
-    else projects[projectno].backend=string[i].substring(10).split(', ');
+    else projects[projectno].backend=string[i].substring(10).split(', ').toString();
     projectno++;
     projects.push({description:"",level:"",type:"",frontend:[""],backend:[""]})
   }
@@ -44,5 +44,4 @@ for(let i=0;i<string.length-1;i++){
 }
 
 
-console.log(projects);
 module.exports = projects

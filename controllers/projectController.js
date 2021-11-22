@@ -10,10 +10,8 @@ exports.addProject = async (req, res) => {
     const owner = req.id;
     const ownerName = req.username;
     let { name, description, repo, link, level, type, frontend, backend } = req.body
-    if(!typeof(frontend)==='object'){
-        frontend = frontend.split(',');
-        backend = backend.split(',')
-    }
+    frontend = frontend.split(',');
+    backend = backend.split(',')
 
     const newProject = {
         name,
@@ -92,12 +90,12 @@ exports.getAllProjects = async (req, res) => {
     return res.status(200).json(projects);
 }
 
-exports.deleteProject = async(req,res) => {
-    const {id} = req.params;
-    Project.deleteOne({_id:id},async(err)=>{
-        if(err) console.log(err)
+exports.deleteProject = async (req, res) => {
+    const { id } = req.params;
+    Project.deleteOne({ _id: id }, async (err) => {
+        if (err) console.log(err)
         const user = await User.findById(req.id);
-        user.projects = user.projects.filter((project)=>project!==id)
+        user.projects = user.projects.filter((project) => project !== id)
         user.save();
         res.status(200).json("Project has been deleted")
     })

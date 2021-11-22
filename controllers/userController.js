@@ -74,7 +74,7 @@ exports.verifyToken = (req,res) => {
         if(err) return res.status(401).json(err)
         const user = {
             email:decoded.email,
-            id:decoded.userId,
+            id:decoded.id,
             username:decoded.username
         }
         res.status(200).json({user,accessToken});

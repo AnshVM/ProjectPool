@@ -26,8 +26,6 @@ function App() {
   const history = useHistory()
 
   useEffect(()=>{
-
-
     axios.get('/api/user/verifyToken')
     .then((res)=>{
       console.log(res.data)
@@ -36,6 +34,7 @@ function App() {
     })
     .catch((err)=>{
       dispatch(login({isLoggedIn:false,user:{}}))
+      console.log(err)
       history.push('/login')
     })
 
