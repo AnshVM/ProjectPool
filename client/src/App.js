@@ -15,6 +15,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useHistory
 } from "react-router-dom";
 
 function App() {
@@ -22,23 +23,28 @@ function App() {
   const description = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
   const dispatch = useDispatch();
   const loginState = useSelector((state)=>state.loginState)
+  const history = useHistory()
 
   useEffect(()=>{
-    axios.get('/api/user')
+
+
+    axios.get('/api/user/verifyToken')
     .then((res)=>{
-      const {_id,username,email} = res.data;
-      const user = {_id,username,email};
-      dispatch(login({isLoggedIn:true,user}))
+      console.log(res.data)
+      const {user,accessToken} = res.data;
+      dispatch(login({isLoggedIn:true,user,accessToken}))
     })
     .catch((err)=>{
       dispatch(login({isLoggedIn:false,user:{}}))
+      history.push('/login')
     })
+
+
   },[])
 
 
   return (
     <div >
-      <Router>
         <Topbar />
 
         <Switch>
@@ -75,7 +81,6 @@ function App() {
           </Route>
 
         </Switch>
-      </Router>
     </div>
 
   );

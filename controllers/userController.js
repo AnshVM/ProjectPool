@@ -69,7 +69,7 @@ exports.getCurentUser = async(req,res) => {
 }
 
 exports.verifyToken = (req,res) => {
-    const accessToken = req.cookies.accessToken ? req.cookies.accessToken.split(' ')[1] : "";
+    const accessToken = req.cookies.accessToken;
     jwt.verify(accessToken,process.env.SECRET_KEY,(err,decoded)=>{
         if(err) return res.status(401).json(err)
         const user = {
@@ -77,6 +77,6 @@ exports.verifyToken = (req,res) => {
             id:decoded.userId,
             username:decoded.username
         }
-        res.status(200).json({user});
+        res.status(200).json({user,accessToken});
     })
 }
