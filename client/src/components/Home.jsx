@@ -12,6 +12,7 @@ export default function Home() {
     const [popular, setPopular] = useState()
 
     useEffect(() => {
+        console.log('here')
         axios.get('/api/project/all',{
             headers:{
                 Authorization:"Bearer "+accessToken
@@ -20,6 +21,7 @@ export default function Home() {
             .then((res) => {
                 res.data.sort((a, b) => a.stars - b.stars)
                 res.data.reverse()
+                console.log(res.data)
                 setPopular(res.data)
             })
             .catch((err) => { console.log(err) })
@@ -27,15 +29,15 @@ export default function Home() {
 
     return (
         <div>
-            <div className="main px-5 lg:px-56 md:px-32 h-full min-h-screen sm:px-5 bg-graybg p-3">
+            <div className="main px-5 lg:px-56 md:px-24 h-full min-h-screen sm:px-5 bg-graybg p-3">
                 <p className="mb-8 text-center font-semibold text-lg">Whether its a fully functioning App, a work in progress or even if its just an idea feel free to put it up here.</p>
                 <div className="flex flex-row justify-between items-center">
                     <h1 className="text-lg font-bold text-gray-600">Popular projects</h1>
                     <Link to="/new"><Button colorScheme="teal" className="mr-3" variant="outline" >New Project / Idea</Button></Link>
                 </div>
-                <div className="grid grid-flow-rows grid-cols-2 gap-4">
+                <div className="grid grid-flow-rows md:grid-cols-2 sm:grid-cols-1 gap-4">
                     {popular && popular.map((project) => {
-                        return <ProjectThumbnail project={project} />
+                        return <ProjectThumbnail key={project._id} project={project} />
                     })}
                 </div>
 

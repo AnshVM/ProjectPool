@@ -17,6 +17,8 @@ export default function Project() {
     const {isLoggedIn,accessToken} = useSelector((state)=>state.loginState);
     const history = useHistory();
     const userid = useSelector((state)=>state.loginState.user.id);
+    const [levelColor,setLevelColor] = useState("")
+
 
     const handleDelete = () => {
         axios.delete('/api/project/'+id,{headers:{authorization:"Bearer "+accessToken}})
@@ -59,7 +61,8 @@ export default function Project() {
         axios.get(`/api/project/${id}`,{headers:{authorization:"Bearer "+accessToken}})
         .then((res)=>{
             setProject(res.data);
-            console.log(res.data)
+            const project = res.data;
+            setLevelColor(project.level === 'Beginner' ? "text-green-600" : project.level==="Intermediate" ?  "text-yellow-600" : "text-red-500")
         })
         .catch((err)=>console.log(err))
 
@@ -106,6 +109,11 @@ export default function Project() {
                 <h3 className="font-bold text-gray-500">Project link</h3>
                 <Tag><Link href={project.link} isExternal><p className="text-base">{project.link}</p></Link></Tag>
             </div>}
+
+            <div className="flex flex-col gap-y-3">
+                <h3 className="font-bold text-gray-500">Difficulty</h3>
+                <Tag><p className={levelColor+" font-semibold"}>{project.level}</p></Tag>
+            </div>
 
             <div>
                 {project.frontend && project.frontend.map((x)=>(<Badge colorScheme="teal" className="ml-2">{x}</Badge>))}
