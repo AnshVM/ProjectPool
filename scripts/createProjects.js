@@ -8,10 +8,10 @@ const projects = require('./ideas')
 
 for(let i=0;i<50;i++){
     const [username,email,password] = userInfo[i].split(' ');
-    axios.post('http://localhost:5000/api/user/login/',{email,password})
+    axios.post('https://projectpool.herokuapp.com/api/user/login/',{email,password})
         .then((res)=>{
             const {accessToken} = res.data;
-            axios.post('http://localhost:5000/api/project',{...projects[i],repo:"",link:""},{headers:{authorization:"Bearer "+accessToken}})
+            axios.post('https://projectpool.herokuapp.com/api/project',{...projects[i],repo:"",link:""},{headers:{authorization:"Bearer "+accessToken}})
                 .then((res)=>{console.log(res.data)})
                 .catch((err)=>console.log(err))
         })

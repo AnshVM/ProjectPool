@@ -19,9 +19,6 @@ export default function Home() {
             }
         })
             .then((res) => {
-                res.data.sort((a, b) => a.stars - b.stars)
-                res.data.reverse()
-                console.log(res.data)
                 setPopular(res.data)
             })
             .catch((err) => { console.log(err) })
