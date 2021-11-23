@@ -3,10 +3,3 @@ Students can make a Facebook clone, an Instagram clone, Blogging websites, to fi
 
 [Click here to go to ProjectPool](https://projectpool.herokuapp.com/)  
 
-### Screenshots
-![Home.png](https://i.ibb.co/smzMDVx/home.png)
-![Login](https://i.ibb.co/SwJjhv9/login.png)
-![Create project](https://i.ibb.co/8z5fzDK/create-Project.png)
-![Dashboard](https://i.ibb.co/Vx33qfq/profile1.png)
-![Starred Projects](https://i.ibb.co/RjRKC55/profile2.png)
-![Project page](https://i.ibb.co/f2KbkMc/project-Page.png)
